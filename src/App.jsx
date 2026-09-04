@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
+import ScrollProgress from "./components/ScrollProgress.jsx";
 import Home from "./pages/Home.jsx";
 import Terms from "./pages/Terms.jsx";
 import Privacy from "./pages/Privacy.jsx";
@@ -30,11 +31,20 @@ export default function App() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+      <ScrollProgress />
       <Header onNavigate={navigate} />
       <main style={{ flex: 1 }}>
         {view === "home" && <Home />}
-        {view === "terms" && <Terms />}
-        {view === "privacy" && <Privacy />}
+        {view === "terms" && (
+          <div style={{ paddingTop: 72 }}>
+            <Terms />
+          </div>
+        )}
+        {view === "privacy" && (
+          <div style={{ paddingTop: 72 }}>
+            <Privacy />
+          </div>
+        )}
       </main>
       <Footer onNavigate={navigate} />
     </div>

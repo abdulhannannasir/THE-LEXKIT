@@ -1,16 +1,40 @@
 import { useState } from "react";
 import { joinWaitlist } from "../supabaseClient.js";
+import { useReveal } from "../hooks/useReveal.js";
+import ParticleField from "../components/ParticleField.jsx";
+import TiltCard from "../components/TiltCard.jsx";
+
+function KineticHeadline({ text }) {
+  const words = text.split(" ");
+  let delay = 0;
+  return (
+    <>
+      {words.map((word, i) => {
+        const d = delay;
+        delay += 70;
+        return (
+          <span key={i} className="kinetic-word" style={{ animationDelay: `${d}ms` }}>
+            {word}
+            {i < words.length - 1 ? "\u00A0" : ""}
+          </span>
+        );
+      })}
+    </>
+  );
+}
 
 function Tier({ name, price, tagline, items, featured }) {
   return (
-    <div
+    <TiltCard
+      featured={featured}
       style={{
-        border: featured ? "2px solid var(--navy)" : "1px solid var(--rule)",
-        borderRadius: 14,
-        background: "var(--paper-raised)",
-        padding: "28px 24px",
-        position: "relative",
-        boxShadow: featured ? "var(--shadow-md)" : "var(--shadow-sm)",
+        border: featured ? "1px solid rgba(232,193,112,0.5)" : "1px solid var(--rule)",
+        borderRadius: 16,
+        background: featured
+          ? "linear-gradient(180deg, #ffffff 0%, #fdfaf3 100%)"
+          : "var(--paper-raised)",
+        padding: "30px 26px",
+        boxShadow: featured ? "0 20px 50px rgba(15,34,56,0.16)" : "var(--shadow-sm)",
         display: "flex",
         flexDirection: "column",
       }}
@@ -20,7 +44,7 @@ function Tier({ name, price, tagline, items, featured }) {
           style={{
             position: "absolute",
             top: -12,
-            left: 24,
+            left: 26,
             background: "var(--navy)",
             color: "var(--gold)",
             fontFamily: "var(--mono)",
@@ -28,39 +52,42 @@ function Tier({ name, price, tagline, items, featured }) {
             letterSpacing: "0.08em",
             padding: "4px 10px",
             borderRadius: 999,
+            zIndex: 2,
           }}
         >
           MOST POPULAR
         </div>
       )}
-      <div style={{ fontFamily: "var(--serif)", fontWeight: 700, fontSize: 22, marginBottom: 4 }}>{name}</div>
-      <p style={{ fontSize: 13.5, color: "var(--text-muted)", marginBottom: 16, lineHeight: 1.5 }}>{tagline}</p>
-      <div style={{ fontFamily: "var(--serif)", fontWeight: 800, fontSize: 34, marginBottom: 18, color: "var(--navy)" }}>
-        {price}
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <div style={{ fontFamily: "var(--serif)", fontWeight: 700, fontSize: 22, marginBottom: 4 }}>{name}</div>
+        <p style={{ fontSize: 13.5, color: "var(--text-muted)", marginBottom: 16, lineHeight: 1.5 }}>{tagline}</p>
+        <div style={{ fontFamily: "var(--serif)", fontWeight: 800, fontSize: 34, marginBottom: 18, color: "var(--navy)" }}>
+          {price}
+        </div>
+        <div style={{ marginBottom: 22 }}>
+          {items.map((it) => (
+            <div key={it} style={{ display: "flex", gap: 8, fontSize: 13.5, marginBottom: 9, lineHeight: 1.4 }}>
+              <span style={{ color: "var(--gold-text)", flexShrink: 0 }}>&#10003;</span>
+              <span>{it}</span>
+            </div>
+          ))}
+        </div>
+        <button
+          className={featured ? "btn btn-gold" : "btn btn-outline"}
+          style={{ width: "100%", padding: "12px 16px", fontSize: 14, borderRadius: 8 }}
+          disabled
+          title="Launching soon &mdash; join the waitlist below"
+        >
+          Coming Soon
+        </button>
       </div>
-      <div style={{ flex: 1, marginBottom: 20 }}>
-        {items.map((it) => (
-          <div key={it} style={{ display: "flex", gap: 8, fontSize: 13.5, marginBottom: 9, lineHeight: 1.4 }}>
-            <span style={{ color: "var(--gold-text)", flexShrink: 0 }}>✓</span>
-            <span>{it}</span>
-          </div>
-        ))}
-      </div>
-      <button
-        className={featured ? "btn btn-gold" : "btn btn-outline"}
-        style={{ width: "100%", padding: "12px 16px", fontSize: 14, borderRadius: 8 }}
-        disabled
-        title="Launching soon — join the waitlist below"
-      >
-        Coming Soon
-      </button>
-    </div>
+    </TiltCard>
   );
 }
 
 function WaitlistForm() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("idle"); // idle | loading | done | error
+  const [status, setStatus] = useState("idle");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -85,18 +112,19 @@ function WaitlistForm() {
       style={{
         maxWidth: 520,
         margin: "0 auto",
-        border: "1px solid rgba(255,255,255,0.12)",
-        borderRadius: 14,
-        background: "var(--navy)",
+        border: "1px solid rgba(232,193,112,0.25)",
+        borderRadius: 16,
+        background: "linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%)",
         color: "#f2f4f7",
-        padding: "32px 28px",
+        padding: "34px 28px",
         textAlign: "center",
         scrollMarginTop: 100,
+        boxShadow: "0 24px 60px rgba(8,20,34,0.35)",
       }}
     >
-      <div style={{ fontFamily: "var(--serif)", fontWeight: 700, fontSize: 20, marginBottom: 8 }}>Get early access</div>
+      <div style={{ fontFamily: "var(--serif)", fontWeight: 700, fontSize: 21, marginBottom: 8 }}>Get early access</div>
       <p style={{ fontSize: 13.5, color: "#a9b3c0", marginBottom: 18, lineHeight: 1.5 }}>
-        Join the waitlist and be first to know when TheLexKit launches — plus an early-access discount.
+        Join the waitlist and be first to know when TheLexKit launches &mdash; plus an early-access discount.
       </p>
       {status === "done" ? (
         <div
@@ -108,7 +136,7 @@ function WaitlistForm() {
             fontSize: 13.5,
           }}
         >
-          You're on the list. We'll email you when it's ready.
+          You&rsquo;re on the list. We&rsquo;ll email you when it&rsquo;s ready.
         </div>
       ) : (
         <form onSubmit={handleSubmit} style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "center" }}>
@@ -128,112 +156,207 @@ function WaitlistForm() {
             }}
           />
           <button type="submit" className="btn btn-gold" disabled={status === "loading"}>
-            {status === "loading" ? "Joining…" : "Join Waitlist"}
+            {status === "loading" ? "Joining\u2026" : "Join Waitlist"}
           </button>
         </form>
       )}
-      {status === "error" && <div style={{ color: "#f0a0a0", fontSize: 12, marginTop: 10 }}>Enter a valid email and try again.</div>}
+      {status === "error" && (
+        <div style={{ color: "#f0a0a0", fontSize: 12, marginTop: 10 }}>Enter a valid email and try again.</div>
+      )}
+    </div>
+  );
+}
+
+function RevealSection({ children, style }) {
+  const [ref, visible] = useReveal();
+  return (
+    <div ref={ref} className={`reveal${visible ? " is-visible" : ""}`} style={style}>
+      {children}
     </div>
   );
 }
 
 export default function Home() {
   return (
-    <div className="wrap" style={{ padding: "0 24px 64px" }}>
-      {/* Hero */}
-      <div style={{ textAlign: "center", padding: "64px 0 44px", maxWidth: 780, margin: "0 auto" }}>
-        <div
-          style={{
-            display: "inline-block",
-            background: "var(--gold-soft)",
-            border: "1px solid var(--gold-border)",
-            color: "var(--gold-text)",
-            fontFamily: "var(--mono)",
-            fontSize: 11,
-            letterSpacing: "0.08em",
-            padding: "6px 14px",
-            borderRadius: 999,
-            marginBottom: 22,
-          }}
-        >
-          LAUNCHING SOON
-        </div>
-        <h1 style={{ fontFamily: "var(--serif)", fontSize: 44, lineHeight: 1.15, marginBottom: 18, color: "var(--navy)" }}>
-          Stop starting every legal document from a blank page.
-        </h1>
-        <p style={{ fontSize: 17, color: "var(--text-muted)", lineHeight: 1.6 }}>
-          TheLexKit is a practical legal documentation system for founders, SMEs, and freelancers —
-          ready-to-edit contracts, notices, and compliance checklists, each with plain-English guidance
-          on what you're actually signing.
-        </p>
-      </div>
-
-      {/* Pricing tiers */}
-      <div
-        style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24, maxWidth: 980, margin: "0 auto 60px" }}
-        className="lk-tiers"
+    <div>
+      {/* ============ HERO ============ */}
+      <section
+        style={{
+          position: "relative",
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          overflow: "hidden",
+          background: "radial-gradient(ellipse at 50% -10%, #16304d 0%, var(--navy) 45%, var(--navy-deep) 100%)",
+        }}
       >
-        <Tier
-          name="Starter"
-          price="$19"
-          tagline="Try it out with the essentials."
-          items={["5 contracts", "5 business notices", "5 compliance checklists", "Clause mini-library"]}
+        <ParticleField />
+        <div className="grain-overlay" />
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "radial-gradient(circle at 20% 20%, rgba(232,193,112,0.08), transparent 40%), radial-gradient(circle at 80% 70%, rgba(232,193,112,0.06), transparent 40%)",
+          }}
         />
-        <Tier
-          name="Professional"
-          price="$49"
-          tagline="The complete toolkit."
-          featured
-          items={[
-            "12 contracts (Word + PDF)",
-            "10 business notices",
-            "10 compliance checklists",
-            "100-clause commercial library",
-            "Contract & business risk checker",
-            "12 months of updates",
-          ]}
-        />
-        <Tier
-          name="Business"
-          price="$99"
-          tagline="For growing operations, including trade."
-          items={[
-            "Everything in Professional",
-            "Import/export compliance section",
-            "HR documentation section",
-            "Commercial due-diligence tools",
-            "12 months of updates",
-          ]}
-        />
-      </div>
 
-      {/* What makes it different */}
-      <div style={{ maxWidth: 780, margin: "0 auto 60px" }}>
-        <h2 style={{ fontFamily: "var(--serif)", fontSize: 26, textAlign: "center", marginBottom: 30, color: "var(--navy)" }}>
-          Not just templates
-        </h2>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 26 }} className="lk-features">
-          {[
-            ["Plain-English clause guide", "Understand what each clause does, what to check, and where it gets negotiated — before you sign."],
-            ["Risk-rated", "Every document flags which provisions matter most, so you know where to focus your attention."],
-            ["Built for editing", "Word + PDF formats, with every field you need to fill in clearly marked."],
-            ["Honest about limits", "Educational templates, not personalized legal advice — with clear guidance on when to bring in a lawyer."],
-          ].map(([title, body]) => (
-            <div key={title}>
-              <div style={{ fontFamily: "var(--serif)", fontWeight: 700, fontSize: 16, marginBottom: 6 }}>{title}</div>
-              <p style={{ fontSize: 13.5, color: "var(--text-muted)", lineHeight: 1.6 }}>{body}</p>
-            </div>
-          ))}
+        <div style={{ position: "relative", zIndex: 2, textAlign: "center", maxWidth: 840, padding: "0 24px" }}>
+          <div
+            style={{
+              display: "inline-block",
+              background: "rgba(232,193,112,0.1)",
+              border: "1px solid rgba(232,193,112,0.35)",
+              color: "#e8c170",
+              fontFamily: "var(--mono)",
+              fontSize: 11,
+              letterSpacing: "0.08em",
+              padding: "6px 14px",
+              borderRadius: 999,
+              marginBottom: 26,
+            }}
+          >
+            LAUNCHING SOON
+          </div>
+
+          <h1
+            style={{
+              fontFamily: "var(--serif)",
+              fontSize: "clamp(34px, 6vw, 58px)",
+              lineHeight: 1.12,
+              marginBottom: 22,
+              color: "#f7f5f0",
+            }}
+          >
+            <KineticHeadline text="Stop starting every legal document from a blank page." />
+          </h1>
+
+          <p
+            className="kinetic-word"
+            style={{
+              animationDelay: "500ms",
+              fontSize: 17,
+              color: "#b7c0cc",
+              lineHeight: 1.65,
+              maxWidth: 620,
+              margin: "0 auto 34px",
+            }}
+          >
+            TheLexKit is a practical legal documentation system for founders, SMEs, and freelancers &mdash;
+            ready-to-edit contracts, notices, and compliance checklists, each with plain-English guidance on
+            what you&rsquo;re actually signing.
+          </p>
+
+          <div
+            className="kinetic-word"
+            style={{ animationDelay: "620ms", display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}
+          >
+            <a href="#waitlist" className="btn btn-gold" style={{ fontSize: 14.5, padding: "13px 26px" }}>
+              Join Waitlist
+            </a>
+            <a
+              href="#features"
+              className="btn"
+              style={{
+                fontSize: 14.5,
+                padding: "13px 26px",
+                background: "transparent",
+                border: "1.5px solid rgba(255,255,255,0.25)",
+                color: "#f2f4f7",
+              }}
+            >
+              See what&rsquo;s inside
+            </a>
+          </div>
         </div>
+
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            bottom: 28,
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: 1,
+            height: 46,
+            background: "linear-gradient(180deg, rgba(232,193,112,0.5), transparent)",
+            zIndex: 2,
+          }}
+        />
+      </section>
+
+      {/* ============ PRICING ============ */}
+      <div className="wrap" style={{ padding: "84px 24px 64px" }} id="features">
+        <RevealSection style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 26, maxWidth: 1000, margin: "0 auto 64px" }}>
+          <div className="lk-tiers" style={{ display: "contents" }}>
+            <Tier
+              name="Starter"
+              price="$19"
+              tagline="Try it out with the essentials."
+              items={["5 contracts", "5 business notices", "5 compliance checklists", "Clause mini-library"]}
+            />
+            <Tier
+              name="Professional"
+              price="$49"
+              tagline="The complete toolkit."
+              featured
+              items={[
+                "12 contracts (Word + PDF)",
+                "10 business notices",
+                "10 compliance checklists",
+                "100-clause commercial library",
+                "Contract & business risk checker",
+                "12 months of updates",
+              ]}
+            />
+            <Tier
+              name="Business"
+              price="$99"
+              tagline="For growing operations, including trade."
+              items={[
+                "Everything in Professional",
+                "Import/export compliance section",
+                "HR documentation section",
+                "Commercial due-diligence tools",
+                "12 months of updates",
+              ]}
+            />
+          </div>
+        </RevealSection>
+
+        {/* ============ FEATURES ============ */}
+        <RevealSection style={{ maxWidth: 780, margin: "0 auto 72px" }}>
+          <h2 style={{ fontFamily: "var(--serif)", fontSize: 27, textAlign: "center", marginBottom: 32, color: "var(--navy)" }}>
+            Not just templates
+          </h2>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 28 }} className="lk-features">
+            {[
+              ["Plain-English clause guide", "Understand what each clause does, what to check, and where it gets negotiated \u2014 before you sign."],
+              ["Risk-rated", "Every document flags which provisions matter most, so you know where to focus your attention."],
+              ["Built for editing", "Word + PDF formats, with every field you need to fill in clearly marked."],
+              ["Honest about limits", "Educational templates, not personalized legal advice \u2014 with clear guidance on when to bring in a lawyer."],
+            ].map(([title, body]) => (
+              <div key={title}>
+                <div style={{ fontFamily: "var(--serif)", fontWeight: 700, fontSize: 16, marginBottom: 6 }}>{title}</div>
+                <p style={{ fontSize: 13.5, color: "var(--text-muted)", lineHeight: 1.6 }}>{body}</p>
+              </div>
+            ))}
+          </div>
+        </RevealSection>
+
+        {/* ============ WAITLIST ============ */}
+        <RevealSection>
+          <WaitlistForm />
+          <p style={{ maxWidth: 580, margin: "28px auto 0", fontSize: 12, color: "var(--text-muted)", textAlign: "center", lineHeight: 1.6 }}>
+            TheLexKit provides educational templates for general informational purposes. It is not personalized
+            legal advice and does not create a lawyer-client relationship. Prices shown are launch estimates and
+            may change before release.
+          </p>
+        </RevealSection>
       </div>
-
-      <WaitlistForm />
-
-      <p style={{ maxWidth: 580, margin: "28px auto 0", fontSize: 12, color: "var(--text-muted)", textAlign: "center", lineHeight: 1.6 }}>
-        TheLexKit provides educational templates for general informational purposes. It is not personalized legal
-        advice and does not create a lawyer-client relationship. Prices shown are launch estimates and may change
-        before release.
-      </p>
 
       <style>{`
         @media (max-width: 860px) {
