@@ -23,7 +23,7 @@ function KineticHeadline({ text }) {
   );
 }
 
-function Tier({ name, price, tagline, items, featured }) {
+function Tier({ name, price, tagline, items, featured, status }) {
   return (
     <TiltCard
       featured={featured}
@@ -37,6 +37,7 @@ function Tier({ name, price, tagline, items, featured }) {
         boxShadow: featured ? "0 20px 50px rgba(15,34,56,0.16)" : "var(--shadow-sm)",
         display: "flex",
         flexDirection: "column",
+        opacity: status === "development" ? 0.82 : 1,
       }}
     >
       {featured && (
@@ -55,7 +56,7 @@ function Tier({ name, price, tagline, items, featured }) {
             zIndex: 2,
           }}
         >
-          MOST POPULAR
+          {status === "development" ? "IN DEVELOPMENT" : "AVAILABLE NOW"}
         </div>
       )}
       <div style={{ position: "relative", zIndex: 1 }}>
@@ -67,8 +68,10 @@ function Tier({ name, price, tagline, items, featured }) {
         <div style={{ marginBottom: 22 }}>
           {items.map((it) => (
             <div key={it} style={{ display: "flex", gap: 8, fontSize: 13.5, marginBottom: 9, lineHeight: 1.4 }}>
-              <span style={{ color: "var(--gold-text)", flexShrink: 0 }}>&#10003;</span>
-              <span>{it}</span>
+              <span style={{ color: status === "development" ? "var(--text-muted)" : "var(--gold-text)", flexShrink: 0 }}>
+                {status === "development" ? "\u25CB" : "\u2713"}
+              </span>
+              <span style={{ color: status === "development" ? "var(--text-muted)" : "inherit" }}>{it}</span>
             </div>
           ))}
         </div>
@@ -76,9 +79,9 @@ function Tier({ name, price, tagline, items, featured }) {
           className={featured ? "btn btn-gold" : "btn btn-outline"}
           style={{ width: "100%", padding: "12px 16px", fontSize: 14, borderRadius: 8 }}
           disabled
-          title="Launching soon &mdash; join the waitlist below"
+          title="Checkout launching soon &mdash; join the waitlist below"
         >
-          Coming Soon
+          {status === "development" ? "Notify Me When Ready" : "Join Waitlist to Buy"}
         </button>
       </div>
     </TiltCard>
@@ -293,29 +296,43 @@ export default function Home() {
         <RevealSection style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 26, maxWidth: 1000, margin: "0 auto 64px" }}>
           <div className="lk-tiers" style={{ display: "contents" }}>
             <Tier
-              name="Starter"
+              name="Starter Kit"
               price="$19"
-              tagline="Try it out with the essentials."
-              items={["5 contracts", "5 business notices", "5 compliance checklists", "Clause mini-library"]}
+              tagline="The current library \u2014 real documents, ready today."
+              featured
+              status="available"
+              items={[
+                "Mutual NDA (Professional Edition)",
+                "Independent Contractor Agreement",
+                "Business Services Agreement",
+                "Vendor / Supplier Agreement",
+                "Payment Demand Notice",
+                "Breach of Contract Notice",
+                "Contract Review Checklist",
+                "Word + PDF, with plain-English clause guides",
+                "Free updates as new documents are added",
+              ]}
             />
             <Tier
               name="Professional"
               price="$49"
-              tagline="The complete toolkit."
-              featured
+              tagline="Everything in Starter, plus the expanded library \u2014 in progress."
+              status="development"
               items={[
-                "12 contracts (Word + PDF)",
-                "10 business notices",
-                "10 compliance checklists",
-                "100-clause commercial library",
+                "Everything in Starter Kit",
+                "Website & software development agreements",
+                "Statement of Work template",
+                "Additional business notices",
+                "Expanded compliance checklists",
+                "Commercial clause library",
                 "Contract & business risk checker",
-                "12 months of updates",
               ]}
             />
             <Tier
               name="Business"
               price="$99"
-              tagline="For growing operations, including trade."
+              tagline="For growing operations, including trade \u2014 planned."
+              status="development"
               items={[
                 "Everything in Professional",
                 "Import/export compliance section",
@@ -326,6 +343,10 @@ export default function Home() {
             />
           </div>
         </RevealSection>
+
+        <p style={{ textAlign: "center", fontSize: 12.5, color: "var(--text-muted)", marginTop: -36, marginBottom: 64 }}>
+          Starter Kit reflects the current, real document library \u2014 not a future promise. New documents are added regularly, and Starter Kit buyers get them free.
+        </p>
 
         {/* ============ FEATURES ============ */}
         <RevealSection style={{ maxWidth: 780, margin: "0 auto 72px" }}>
