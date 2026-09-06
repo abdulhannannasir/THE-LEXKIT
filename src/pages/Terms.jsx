@@ -3,7 +3,7 @@ export default function Terms() {
     <div className="wrap" style={{ padding: "48px 24px 64px", maxWidth: 720, margin: "0 auto" }}>
       <h1 style={{ fontFamily: "var(--serif)", fontSize: 32, marginBottom: 8, color: "var(--navy)" }}>Terms of Use</h1>
       <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 28 }}>
-        Draft — placeholder terms pending full review. Do not rely on this as final before launch.
+        Last updated: September 2026
       </p>
 
       <h2 style={{ fontFamily: "var(--serif)", fontSize: 19, marginTop: 28 }}>1. What TheLexKit is</h2>
@@ -31,8 +31,10 @@ export default function Terms() {
 
       <h2 style={{ fontFamily: "var(--serif)", fontSize: 19, marginTop: 28 }}>4. Refunds</h2>
       <p style={{ fontSize: 15, lineHeight: 1.7 }}>
-        [Placeholder — define your refund policy before launch, e.g. no refunds once files are delivered, given the
-        nature of digital goods, or a specific refund window.]
+        All sales are final. Because our products are digital files delivered immediately upon purchase, we do not
+        offer refunds for change of mind. If the files you receive are genuinely corrupted, incomplete, or do not
+        match what was purchased, contact us at the email below and we will make it right by re-sending the correct
+        files.
       </p>
 
       <h2 style={{ fontFamily: "var(--serif)", fontSize: 19, marginTop: 28 }}>5. Limitation of liability</h2>
@@ -42,10 +44,18 @@ export default function Terms() {
       </p>
 
       <h2 style={{ fontFamily: "var(--serif)", fontSize: 19, marginTop: 28 }}>6. Governing law</h2>
-      <p style={{ fontSize: 15, lineHeight: 1.7 }}>[Placeholder — specify governing law and jurisdiction.]</p>
+      <p style={{ fontSize: 15, lineHeight: 1.7 }}>
+        These Terms are governed by the laws of Pakistan. Any dispute arising from these Terms or your use of
+        TheLexKit's materials shall be subject to the exclusive jurisdiction of the courts of Lahore, Pakistan.
+      </p>
 
       <h2 style={{ fontFamily: "var(--serif)", fontSize: 19, marginTop: 28 }}>7. Contact</h2>
-      <p style={{ fontSize: 15, lineHeight: 1.7 }}>[Placeholder — add a contact email before launch.]</p>
+      <p style={{ fontSize: 15, lineHeight: 1.7 }}>
+        Questions about these Terms, or about an order, can be sent to{" "}
+        <a href="mailto:Abdulhannannasir666@gmail.com" style={{ color: "var(--navy)", textDecoration: "underline" }}>
+          Abdulhannannasir666@gmail.com
+        </a>.
+      </p>
     </div>
   );
 }

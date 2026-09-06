@@ -3,33 +3,41 @@ export default function Privacy() {
     <div className="wrap" style={{ padding: "48px 24px 64px", maxWidth: 720, margin: "0 auto" }}>
       <h1 style={{ fontFamily: "var(--serif)", fontSize: 32, marginBottom: 8, color: "var(--navy)" }}>Privacy Policy</h1>
       <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 28 }}>
-        Draft — placeholder policy pending full review. Do not rely on this as final before launch.
+        Last updated: September 2026
       </p>
 
       <h2 style={{ fontFamily: "var(--serif)", fontSize: 19, marginTop: 28 }}>What we collect</h2>
       <p style={{ fontSize: 15, lineHeight: 1.7 }}>
-        Currently, this site collects only the email address you provide when joining the waitlist. Once purchases
-        are live, this will expand to include billing/order information handled by our payment provider — update
-        this section at that time.
+        If you join our waitlist, we collect the email address you provide. If you make a purchase, our payment
+        processor (Whop) collects your email, name, and payment details directly to process the transaction and
+        deliver your files \u2014 TheLexKit does not receive or store your card or payment information.
       </p>
 
       <h2 style={{ fontFamily: "var(--serif)", fontSize: 19, marginTop: 28 }}>How we use it</h2>
       <p style={{ fontSize: 15, lineHeight: 1.7 }}>
-        Your email is used solely to notify you about the TheLexKit launch and related updates. We do not sell or
-        share your email with third parties for marketing purposes.
+        We use your email to deliver purchased files, notify you about new documents added to your purchased tier,
+        and respond to support questions. We do not sell or share your email with third parties for marketing
+        purposes.
       </p>
 
       <h2 style={{ fontFamily: "var(--serif)", fontSize: 19, marginTop: 28 }}>Where it's stored</h2>
       <p style={{ fontSize: 15, lineHeight: 1.7 }}>
-        Waitlist data is stored using Supabase, a third-party database provider. [Confirm Supabase's data-hosting
-        region and add any required disclosures before launch, particularly if targeting EU/UK visitors under
-        GDPR.]
+        Waitlist emails are stored using Supabase, a third-party database provider. Purchase and payment information
+        is handled directly by Whop, our payment processor, under their own privacy policy.
       </p>
 
       <h2 style={{ fontFamily: "var(--serif)", fontSize: 19, marginTop: 28 }}>Your rights</h2>
       <p style={{ fontSize: 15, lineHeight: 1.7 }}>
-        You may request removal of your email from our waitlist at any time by contacting [placeholder — add
-        contact email].
+        You may request removal of your email from our waitlist, or ask what information we hold about you, at any
+        time by contacting the email below.
+      </p>
+
+      <h2 style={{ fontFamily: "var(--serif)", fontSize: 19, marginTop: 28 }}>Contact</h2>
+      <p style={{ fontSize: 15, lineHeight: 1.7 }}>
+        Questions about this policy can be sent to{" "}
+        <a href="mailto:Abdulhannannasir666@gmail.com" style={{ color: "var(--navy)", textDecoration: "underline" }}>
+          Abdulhannannasir666@gmail.com
+        </a>.
       </p>
     </div>
   );
