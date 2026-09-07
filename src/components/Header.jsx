@@ -69,11 +69,13 @@ export default function Header({ onNavigate }) {
           </span>
         </a>
         <a
-          href="#waitlist"
+          href="https://whop.com/thelexkit/legal-documents-starter-kit/"
+          target="_blank"
+          rel="noopener noreferrer"
           className={scrolled ? "btn" : "btn btn-gold"}
           style={{ fontSize: 13, padding: "10px 18px" }}
         >
-          Join Waitlist
+          Buy Now
         </a>
       </div>
     </header>

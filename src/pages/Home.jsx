@@ -75,7 +75,26 @@ function Tier({ name, price, tagline, items, featured, status }) {
             </div>
           ))}
         </div>
-        <a href="https://whop.com/thelexkit/legal-documents-starter-kit" className="mt-8 block w-full py-3 px-4 bg-[#C5A880] hover:bg-[#b59870] text-[#0A192F] font-bold text-center rounded transition-colors duration-200">Buy Now — $19</a>
+        {status === "development" ? (
+          <button
+            className="btn btn-outline"
+            style={{ width: "100%", padding: "12px 16px", fontSize: 14, borderRadius: 8 }}
+            disabled
+            title="Not available yet"
+          >
+            Notify Me When Ready
+          </button>
+        ) : (
+          <a
+            href="https://whop.com/thelexkit/legal-documents-starter-kit/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-gold"
+            style={{ width: "100%", padding: "12px 16px", fontSize: 14, borderRadius: 8, textAlign: "center", display: "block" }}
+          >
+            Buy Now &mdash; $19
+          </a>
+        )}
       </div>
     </TiltCard>
   );
@@ -118,9 +137,9 @@ function WaitlistForm() {
         boxShadow: "0 24px 60px rgba(8,20,34,0.35)",
       }}
     >
-      <div style={{ fontFamily: "var(--serif)", fontWeight: 700, fontSize: 21, marginBottom: 8 }}>Get early access</div>
+      <div style={{ fontFamily: "var(--serif)", fontWeight: 700, fontSize: 21, marginBottom: 8 }}>Get notified about new documents</div>
       <p style={{ fontSize: 13.5, color: "#a9b3c0", marginBottom: 18, lineHeight: 1.5 }}>
-        Join the waitlist and be first to know when TheLexKit launches &mdash; plus an early-access discount.
+        The Starter Kit is available now. Join this list to hear when Professional and Business tier documents are ready.
       </p>
       {status === "done" ? (
         <div
@@ -215,7 +234,7 @@ export default function Home() {
               marginBottom: 26,
             }}
           >
-            LAUNCHING SOON
+            AVAILABLE NOW
           </div>
 
           <h1
@@ -250,8 +269,14 @@ export default function Home() {
             className="kinetic-word"
             style={{ animationDelay: "620ms", display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}
           >
-            <a href="#waitlist" className="btn btn-gold" style={{ fontSize: 14.5, padding: "13px 26px" }}>
-              Join Waitlist
+            <a
+              href="https://whop.com/thelexkit/legal-documents-starter-kit/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-gold"
+              style={{ fontSize: 14.5, padding: "13px 26px" }}
+            >
+              Get the Starter Kit &mdash; $19
             </a>
             <a
               href="#features"
@@ -366,8 +391,8 @@ export default function Home() {
           <WaitlistForm />
           <p style={{ maxWidth: 580, margin: "28px auto 0", fontSize: 12, color: "var(--text-muted)", textAlign: "center", lineHeight: 1.6 }}>
             TheLexKit provides educational templates for general informational purposes. It is not personalized
-            legal advice and does not create a lawyer-client relationship. Prices shown are launch estimates and
-            may change before release.
+            legal advice and does not create a lawyer-client relationship. Professional and Business tier prices
+            shown are estimates and may change before release.
           </p>
         </RevealSection>
       </div>
