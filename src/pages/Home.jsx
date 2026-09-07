@@ -75,14 +75,7 @@ function Tier({ name, price, tagline, items, featured, status }) {
             </div>
           ))}
         </div>
-        <button
-          className={featured ? "btn btn-gold" : "btn btn-outline"}
-          style={{ width: "100%", padding: "12px 16px", fontSize: 14, borderRadius: 8 }}
-          disabled
-          title="Checkout launching soon &mdash; join the waitlist below"
-        >
-          {status === "development" ? "Notify Me When Ready" : "Join Waitlist to Buy"}
-        </button>
+        <a href="https://whop.com/thelexkit/legal-documents-starter-kit" className="mt-8 block w-full py-3 px-4 bg-[#C5A880] hover:bg-[#b59870] text-[#0A192F] font-bold text-center rounded transition-colors duration-200">Buy Now — $19</a>
       </div>
     </TiltCard>
   );
