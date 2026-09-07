@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TheLexKit Assets</title>
+  <style>
+    body { background: #e2e8f0; font-family: sans-serif; padding: 40px; text-align: center; }
+    canvas { margin: 20px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-radius: 8px; }
+    button { padding: 12px 24px; background: #0A192F; color: #C5A880; border: none; cursor: pointer; font-weight: bold; border-radius: 6px; font-size: 16px; margin-bottom: 40px; }
+    button:hover { background: #112240; }
+  </style>
+</head>
+<body>
+  <h2>TheLexKit Brand Assets Generator</h2>
+  <p>Click the buttons below to download your perfectly sized, branded PNGs for Whop.</p>
+  
+  <div>
+    <button onclick="download('logoCanvas', 'logo-square-400.png')">Download Main Product Photo (400x400)</button><br>
+    <canvas id="logoCanvas" width="400" height="400"></canvas>
+  </div>
+
+  <div>
+    <button onclick="download('bannerCanvas', 'cover-1128x191.png')">Download Banner Image (1128x191)</button><br>
+    <canvas id="bannerCanvas" width="1128" height="191"></canvas>
+  </div>
+
+  <script>
+    const NAVY = '#0A192F';
+    const GOLD = '#C5A880';
+
+    function drawParticles(ctx, width, height, count) {
+      for (let i = 0; i < count; i++) {
+        ctx.beginPath();
+        const x = Math.random() * width;
+        const y = Math.random() * height;
+        const r = Math.random() * 2 + 0.5;
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fillStyle = GOLD;
+        ctx.globalAlpha = Math.random() * 0.5 + 0.1;
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1.0; 
+    }
+
+    // 1. Draw Main Product Photo (Square)
+    const logoCtx = document.getElementById('logoCanvas').getContext('2d');
+    logoCtx.fillStyle = NAVY;
+    logoCtx.fillRect(0, 0, 400, 400);
+    drawParticles(logoCtx, 400, 400, 100);
+    
+    logoCtx.fillStyle = GOLD;
+    logoCtx.textAlign = 'center';
+    logoCtx.textBaseline = 'middle';
+    
+    logoCtx.shadowColor = 'rgba(197, 168, 128, 0.4)';
+    logoCtx.shadowBlur = 20;
+    logoCtx.font = 'bold 90px "Times New Roman", Georgia, serif';
+    logoCtx.fillText('TLK', 200, 170);
+    
+    logoCtx.shadowBlur = 0;
+    logoCtx.font = '30px "Times New Roman", Georgia, serif';
+    logoCtx.fillText('TheLexKit', 200, 250);
+
+    // 2. Draw Banner Image
+    const bannerCtx = document.getElementById('bannerCanvas').getContext('2d');
+    bannerCtx.fillStyle = NAVY;
+    bannerCtx.fillRect(0, 0, 1128, 191);
+    drawParticles(bannerCtx, 1128, 191, 250);
+    
+    bannerCtx.fillStyle = GOLD;
+    bannerCtx.textAlign = 'center';
+    bannerCtx.textBaseline = 'middle';
+    
+    bannerCtx.shadowColor = 'rgba(197, 168, 128, 0.4)';
+    bannerCtx.shadowBlur = 20;
+    bannerCtx.font = 'bold 72px "Times New Roman", Georgia, serif';
+    bannerCtx.fillText('TheLexKit', 564, 85);
+    
+    bannerCtx.shadowBlur = 0;
+    bannerCtx.font = 'italic 24px "Times New Roman", Georgia, serif';
+    bannerCtx.fillText('Practical legal documents for founders & SMEs', 564, 145);
+
+    function download(canvasId, filename) {
+      const canvas = document.getElementById(canvasId);
+      const link = document.createElement('a');
+      link.download = filename;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+  </script>
+</body>
+</html>

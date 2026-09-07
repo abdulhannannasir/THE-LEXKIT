@@ -1,61 +1,33 @@
-export default function Terms() {
+import React from "react";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+
+export default function Terms({ onNavigate }) {
   return (
-    <div className="wrap" style={{ padding: "48px 24px 64px", maxWidth: 720, margin: "0 auto" }}>
-      <h1 style={{ fontFamily: "var(--serif)", fontSize: 32, marginBottom: 8, color: "var(--navy)" }}>Terms of Use</h1>
-      <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 28 }}>
-        Last updated: September 2026
-      </p>
-
-      <h2 style={{ fontFamily: "var(--serif)", fontSize: 19, marginTop: 28 }}>1. What TheLexKit is</h2>
-      <p style={{ fontSize: 15, lineHeight: 1.7 }}>
-        TheLexKit provides educational legal document templates, checklists, and related materials for general
-        informational purposes. Nothing on this site or in any product constitutes legal advice, and using our
-        materials does not create a lawyer-client relationship between you and TheLexKit or any individual
-        associated with it.
-      </p>
-
-      <h2 style={{ fontFamily: "var(--serif)", fontSize: 19, marginTop: 28 }}>2. License to use purchased materials</h2>
-      <p style={{ fontSize: 15, lineHeight: 1.7 }}>
-        Upon purchase, you receive a limited, non-exclusive, non-transferable license to use the materials for your
-        own business or personal purposes. You may not resell, redistribute, sublicense, or publish our templates
-        as your own product, in whole or in part.
-      </p>
-
-      <h2 style={{ fontFamily: "var(--serif)", fontSize: 19, marginTop: 28 }}>3. No warranty</h2>
-      <p style={{ fontSize: 15, lineHeight: 1.7 }}>
-        Materials are provided "as is" without warranty of any kind. We do not guarantee that any document is
-        suitable for your specific situation or compliant with the laws of any particular jurisdiction. You are
-        responsible for adapting materials to your circumstances and, where appropriate, seeking review from a
-        licensed lawyer.
-      </p>
-
-      <h2 style={{ fontFamily: "var(--serif)", fontSize: 19, marginTop: 28 }}>4. Refunds</h2>
-      <p style={{ fontSize: 15, lineHeight: 1.7 }}>
-        All sales are final. Because our products are digital files delivered immediately upon purchase, we do not
-        offer refunds for change of mind. If the files you receive are genuinely corrupted, incomplete, or do not
-        match what was purchased, contact us at the email below and we will make it right by re-sending the correct
-        files.
-      </p>
-
-      <h2 style={{ fontFamily: "var(--serif)", fontSize: 19, marginTop: 28 }}>5. Limitation of liability</h2>
-      <p style={{ fontSize: 15, lineHeight: 1.7 }}>
-        To the maximum extent permitted by law, TheLexKit shall not be liable for any indirect, incidental, or
-        consequential damages arising from use of our materials.
-      </p>
-
-      <h2 style={{ fontFamily: "var(--serif)", fontSize: 19, marginTop: 28 }}>6. Governing law</h2>
-      <p style={{ fontSize: 15, lineHeight: 1.7 }}>
-        These Terms are governed by the laws of Pakistan. Any dispute arising from these Terms or your use of
-        TheLexKit's materials shall be subject to the exclusive jurisdiction of the courts of Lahore, Pakistan.
-      </p>
-
-      <h2 style={{ fontFamily: "var(--serif)", fontSize: 19, marginTop: 28 }}>7. Contact</h2>
-      <p style={{ fontSize: 15, lineHeight: 1.7 }}>
-        Questions about these Terms, or about an order, can be sent to{" "}
-        <a href="mailto:Abdulhannannasir666@gmail.com" style={{ color: "var(--navy)", textDecoration: "underline" }}>
-          Abdulhannannasir666@gmail.com
-        </a>.
-      </p>
+    <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
+      <Header onNavigate={onNavigate} />
+      <main className="flex-grow max-w-3xl mx-auto px-6 py-32 w-full">
+        <h1 className="text-4xl font-serif font-bold text-[#0A192F] mb-8">Terms of Use</h1>
+        <div className="prose prose-slate max-w-none text-slate-700 space-y-6">
+          <p className="text-sm font-semibold uppercase tracking-wider text-[#C5A880]">Last Updated: September 2026</p>
+          
+          <h2 className="text-2xl font-serif text-[#0A192F] mt-8 mb-4">1. Educational Purpose Only</h2>
+          <p>TheLexKit provides legal templates, checklists, and guides for general educational and informational purposes. <strong>We are not a law firm, and our products are not a substitute for personalized legal advice.</strong> Using our templates does not create an attorney-client relationship.</p>
+          
+          <h2 className="text-2xl font-serif text-[#0A192F] mt-8 mb-4">2. Digital Products & Refund Policy</h2>
+          <p>Due to the nature of instant digital downloads, all sales are final. <strong>We do not offer refunds</strong> once a product has been accessed or downloaded. If you encounter a technical issue with a file, please contact us for a replacement.</p>
+          
+          <h2 className="text-2xl font-serif text-[#0A192F] mt-8 mb-4">3. Permitted Use</h2>
+          <p>When you purchase a product from TheLexKit, you are granted a non-exclusive, non-transferable license to use, edit, and modify the documents for your own personal or internal business use. You may not resell, redistribute, or publicly share the unmodified templates.</p>
+          
+          <h2 className="text-2xl font-serif text-[#0A192F] mt-8 mb-4">4. Governing Law</h2>
+          <p>These Terms shall be governed by and construed in accordance with the laws of Pakistan. Any disputes arising from these terms or your use of the products shall be subject to the exclusive jurisdiction of the courts located in Lahore, Pakistan.</p>
+          
+          <h2 className="text-2xl font-serif text-[#0A192F] mt-8 mb-4">5. Contact</h2>
+          <p>If you have questions about these Terms, please contact us at Abdulhannannasir666@gmail.com.</p>
+        </div>
+      </main>
+      <Footer onNavigate={onNavigate} />
     </div>
   );
 }
